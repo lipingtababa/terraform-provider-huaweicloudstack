@@ -52,6 +52,12 @@ $ terraform plan
 $ terraform apply # Should all work if everything is correct.
 
 ```
+## Dockerfile
+You can also build an docker image with all the tools aforementioned if you are familiar with docker
+
+[Dockerfile from Ubuntu 16.04, with go 1.1.15, Terraform 0.12.12 and latest HuaweiCloudStack provider](Dockerfile).
+
+
 
 ## Quick Start
 
