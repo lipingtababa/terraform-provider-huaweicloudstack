@@ -22,16 +22,12 @@ RUN go version
 #install terraform 
 RUN wget https://releases.hashicorp.com/terraform/0.12.12/terraform_0.12.12_linux_amd64.zip
 RUN unzip terraform_0.12.12_linux_amd64.zip
-RUN mv terraform /usr/local/go/bin
+RUN mkdir /root/go && mkdir /root/go/bin && mv terraform /root/go/bin
+ENV PATH=$PATH:/root/go/bin
+RUN echo "PATH=$PATH:/root/go/bin" >> /etc/environment
 RUN terraform version
 
 #install huaweicloudstack provider
-RUN git clone https://github.com/huaweicloud/terraform-provider-huaweicloudstack /data/go/src/github.com/terraform-providers/terraform-provider-huaweicloudstack
-#1 cd doesn't change the work directory and you have to use WORKDIR, and I spent half an hour on this stupid Dockerfile feature
-#RUN cd ~/go/src/github.com/terraform-providers/terraform-provider-huaweicloudstack/ 
-#2 ~ doesn't refer to the home directory in Docerfile
-#3 I need to read a docker book before writing any Dockerfile. too much time wasted in stupid stuff
-WORKDIR  /data/go/src/github.com/terraform-providers/terraform-provider-huaweicloudstack/
+RUN git clone https://github.com/huaweicloud/terraform-provider-huaweicloudstack /root/go/src/github.com/terraform-providers/terraform-provider-huaweicloudstack
+WORKDIR  /root/go/src/github.com/terraform-providers/terraform-provider-huaweicloudstack/
 RUN make build
-ENV PATH=$PATH:/data/go/bin
-RUN echo "PATH=$PATH:/data/go/bin" >> /etc/environment
