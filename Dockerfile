@@ -1,16 +1,8 @@
 FROM ubuntu:16.04
 WORKDIR /data
 
-#Call this before you can install anything
-RUN apt update
-
 #install needed tools
-RUN apt -y install wget
-RUN apt -y install vim
-RUN apt -y install git
-RUN apt -y install zip
-RUN apt -y install build-essential
-RUN apt -y install make
+RUN apt update && apt -y install wget && apt -y install vim && apt -y install git && apt -y install zip && apt -y install build-essential && apt -y install make
 
 #install go
 RUN wget https://storage.googleapis.com/golang/go1.11.5.linux-amd64.tar.gz
